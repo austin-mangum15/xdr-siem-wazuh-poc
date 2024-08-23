@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-windows-machine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulnerable-windows-machine
+  template:
+    metadata:
+      labels:
+        app: vulnerable-windows-machine
+    spec:
+      containers:
+      - name: vulnerable-windows-machine
+        image: mcr.microsoft.com/windows/servercore:ltsc2019  # Windows Server Core image
+        ports:
+        - containerPort: 3389  # Exposing RDP port
+        securityContext:
+          runAsUser: 0  # Running as Administrator
+      volumes:
+      - name: windows-machine-data
+        emptyDir: {}

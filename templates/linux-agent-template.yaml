@@ -1,0 +1,26 @@
+# Add this to an existing Kubernetes deployment for a Linux-based endpoint
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wazuh-agent-linux
+  labels:
+    app: wazuh-agent
+spec:
+  containers:
+  - name: wazuh-agent
+    image: wazuh/wazuh-agent:latest
+    env:
+    - name: WAZUH_MANAGER
+      value: "wazuh-manager"  # Replace with your Wazuh Manager's service name or IP
+    - name: WAZUH_AGENT_GROUP
+      value: "default"
+    volumeMounts:
+    - name: wazuh-agent-config
+      mountPath: /var/ossec/etc
+    - name: wazuh-agent-logs
+      mountPath: /var/ossec/logs
+  volumes:
+  - name: wazuh-agent-config
+    emptyDir: {}
+  - name: wazuh-agent-logs
+    emptyDir: {}

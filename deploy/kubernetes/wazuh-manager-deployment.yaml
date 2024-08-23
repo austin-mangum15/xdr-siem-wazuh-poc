@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wazuh-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-manager
+  template:
+    metadata:
+      labels:
+        app: wazuh-manager
+    spec:
+      containers:
+      - name: wazuh-manager
+        image: wazuh/wazuh-manager:latest
+        ports:
+        - containerPort: 1514 #udp
+        - containerPort: 1515
+        - containerPort: 55000
+        - containerPort: 514 #udp
+        env:
+        - name: WAZUH_MANAGER
+          value: "yes"
+        volumeMounts:
+        - name: wazuh-config
+          mountPath: /var/ossec/etc
+        - name: wazuh-logs
+          mountPath: /var/ossec/logs
+      - name: wazuh-indexer
+        image: wazuh/wazuh-indexer:latest
+        ports:
+        - containerPort: 9200
+        env:
+        - name: "discovery.type"
+          value: "single-node"
+        volumeMounts:
+        - name: wazuh-indexer-data
+          mountPath: /usr/share/wazuh-indexer/data
+      - name: wazuh-dashboard
+        image: wazuh/wazuh-dashboard:latest
+        ports:
+        - containerPort: 5601
+      volumes:
+      - name: wazuh-config
+        emptyDir: {}
+      - name: wazuh-logs
+        emptyDir: {}
+      - name: wazuh-indexer-data
+        emptyDir: {}

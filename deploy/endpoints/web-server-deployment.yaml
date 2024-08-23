@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-web-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulnerable-web-server
+  template:
+    metadata:
+      labels:
+        app: vulnerable-web-server
+    spec:
+      containers:
+      - name: vulnerable-web-server
+        image: php:5.6-apache  # Using an outdated version of PHP as an example
+        ports:
+        - containerPort: 80
+        env:
+        - name: PHP_DISPLAY_ERRORS
+          value: "1"  # Enabling display_errors to simulate a security misconfiguration
+      volumes:
+      - name: web-server-data
+        emptyDir: {}

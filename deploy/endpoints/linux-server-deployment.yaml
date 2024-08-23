@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-linux-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulnerable-linux-server
+  template:
+    metadata:
+      labels:
+        app: vulnerable-linux-server
+    spec:
+      containers:
+      - name: vulnerable-linux-server
+        image: vulnerables/web-dvwa  # Using Damn Vulnerable Web App as an example
+        ports:
+        - containerPort: 80
+        - containerPort: 22
+        securityContext:
+          runAsUser: 0  # Running as root to simulate a security risk
+          capabilities:
+            add: ["NET_ADMIN", "SYS_TIME"]  # Adding extra capabilities as a potential risk
+      volumes:
+      - name: linux-server-data
+        emptyDir: {}

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wazuh-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-agent
+  template:
+    metadata:
+      labels:
+        app: wazuh-agent
+    spec:
+      containers:
+      - name: wazuh-agent
+        image: wazuh/wazuh-agent:latest
+        env:
+        - name: WAZUH_MANAGER
+          value: "wazuh-manager"
+        - name: WAZUH_AGENT_GROUP
+          value: "default"
+        volumeMounts:
+        - name: wazuh-agent-config
+          mountPath: /var/ossec/etc
+        - name: wazuh-agent-logs
+          mountPath: /var/ossec/logs
+      volumes:
+      - name: wazuh-agent-config
+        emptyDir: {}
+      - name: wazuh-agent-logs
+        emptyDir: {}
