@@ -3,30 +3,23 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
-# Install Docker if it's not installed
-if ! command_exists docker; then
-    echo "Docker not found. Installing Docker..."
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sh get-docker.sh
-    rm get-docker.sh
+# Check if Docker is running and accessible
+if ! docker info > /dev/null 2>&1; then
+    echo "Docker is not running or not accessible. Please start Docker and ensure your user has access."
+    exit 1
 fi
 
-# Install Minikube if it's not installed
-if ! command_exists minikube; then
-    echo "Minikube not found. Installing Minikube..."
-    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    chmod +x minikube
-    sudo mv minikube /usr/local/bin/
+# Check if the user is in the docker group
+if ! groups $USER | grep -q "\bdocker\b"; then
+    echo "Adding user $USER to the docker group..."
+    sudo usermod -aG docker $USER
+    echo "User $USER added to the docker group. Please log out and log back in or run 'newgrp docker' to apply changes."
+    newgrp docker
 fi
 
-# Start Minikube
+# Start Minikube with Docker driver
 echo "Starting Minikube..."
-minikube start --driver=docker
+minikube start --driver=docker --force
 
 # Install kubectl if it's not installed
 if ! command_exists kubectl; then

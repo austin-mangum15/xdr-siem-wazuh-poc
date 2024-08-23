@@ -10,9 +10,15 @@ deploy_k8s() {
     kubectl apply -f $file
 }
 
+# Check if Docker is running and accessible
+if ! docker info > /dev/null 2>&1; then
+    echo "Docker is not running or not accessible. Please start Docker and ensure your user has access."
+    exit 1
+fi
+
 # Ensure Minikube is running
 echo "Ensuring Minikube is running..."
-minikube status || minikube start
+minikube status || minikube start --driver=docker
 
 # Deploy Wazuh components (Manager, Indexer, Dashboard)
 echo "Deploying Wazuh components..."

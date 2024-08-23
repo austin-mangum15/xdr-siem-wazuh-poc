@@ -18,16 +18,7 @@ This repository contains a Proof of Concept (PoC) for integrating Wazuh as an XD
 Clone this repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/your-repo/xdr-siem-wazuh-poc.git
-cd xdr-siem-wazuh-poc
-```
-
-### 1. Clone the Repository
-
-Clone the repository to your local machine. 
-
-```bash
-git clone https://github.com/your-repo/xdr-siem-wazuh-poc.git
+git clone https://github.com/austin-mangum15/xdr-siem-wazuh-poc.git
 cd xdr-siem-wazuh-poc
 ```
 
@@ -36,8 +27,14 @@ cd xdr-siem-wazuh-poc
 Run the setup script to install necessary dependencies and start Minikube:
 
 ```bash
-./scripts/setup.sh
+sudo ./scripts/setup.sh
 ```
+
+If you get a permissions error make sure you have executable permissions
+```bash
+chmod +x ./scripts/setup.sh
+```
+
 This script will:
 - Install Docker, Minikube, and kubectl if they are not already installed.
 - Start a Minikube cluster using Docker as the driver.
