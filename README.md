@@ -8,15 +8,8 @@ This repository contains a Proof of Concept (PoC) for integrating Wazuh as an XD
 
 - [Setup](#setup)
 - [Deploying the PoC](#deploying-the-poc)
-- [Accessing the Wazuh Dashboard](#accessing-the-wazuh-dashboard)
 - [Exploring Vulnerable Endpoints](#exploring-vulnerable-endpoints)
-- [Monitoring and Analysis](#monitoring-and-analysis)
 - [Cleanup](#cleanup)
-- [Components](#components)
-- [Templates](#templates)
-- [Auto-Scaling and Cost Optimization](#auto-scaling-and-cost-optimization)
-- [Future Work](#future-work)
-- [Conclusion](#conclusion)
 
 ## Setup
 
@@ -99,7 +92,7 @@ This Command will return the URL. Open this URL n your Browser to access the Waz
 
 After logging in, you will see the Wazuh Dashboard, which provides a comprehensive overview of the security events and alerts.
 
-### 5. Exploring Vulnerable Endpoints
+## Exploring Vulnerable Endpoints
 
 The PoC deploys several vulnerable endpoints that the Wazuh agents will monitor:
 
