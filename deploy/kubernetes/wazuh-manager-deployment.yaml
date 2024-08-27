@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wazuh-manager
-        image: wazuh/wazuh:4.8.0
+        image: wazuh/wazuh-manager:latest  # Use the latest tag for Docker Hub image
         ports:
         - containerPort: 1514
           protocol: UDP
@@ -33,5 +33,4 @@ spec:
       volumes:
       - name: wazuh-config
         emptyDir: {}
-      - name: wazuh-logs
-        emptyDir: {}
+ 
