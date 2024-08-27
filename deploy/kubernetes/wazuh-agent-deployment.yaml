@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wazuh-agent
-        image: wazuh/wazuh-agent:latest
+        image: wazuh/wazuh-agent:4.8.0  # Use the specific version tag
         env:
         - name: WAZUH_MANAGER
           value: "wazuh-manager"
