@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wazuh-indexer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-indexer
+  template:
+    metadata:
+      labels:
+        app: wazuh-indexer
+    spec:
+      containers:
+      - name: wazuh-indexer
+        image: wazuh/wazuh-indexer:4.8.0
+        ports:
+        - containerPort: 9200
+        env:
+        - name: discovery.type
+          value: "single-node"
+        volumeMounts:
+        - name: wazuh-indexer-data
+          mountPath: /usr/share/wazuh-indexer/data
+      volumes:
+      - name: wazuh-indexer-data
+        emptyDir: {}

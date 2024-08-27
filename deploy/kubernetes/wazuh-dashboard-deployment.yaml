@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wazuh-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wazuh-dashboard
+  template:
+    metadata:
+      labels:
+        app: wazuh-dashboard
+    spec:
+      containers:
+      - name: wazuh-dashboard
+        image: wazuh/wazuh-dashboard:4.4.2 # Update to the correct image and version
+        ports:
+        - containerPort: 5601
+        volumeMounts:
+        - name: wazuh-dashboard-data
+          mountPath: /usr/share/wazuh-dashboard/data
+      volumes:
+      - name: wazuh-dashboard-data
+        emptyDir: {}
