@@ -22,13 +22,13 @@ minikube status || minikube start --driver=docker
 
 # Deploy Wazuh components (Manager, Indexer, Dashboard)
 echo "Deploying Wazuh components..."
-deploy_k8s ../deploy/kubernetes/wazuh-manager-deployment.yaml
+deploy_k8s ./deploy/kubernetes/wazuh-manager-deployment.yaml
 
 # Deploy vulnerable endpoints
 echo "Deploying vulnerable endpoints..."
-deploy_k8s ../deploy/endpoints/linux-server-deployment.yaml
-deploy_k8s ../deploy/endpoints/web-server-deployment.yaml
-deploy_k8s ../deploy/endpoints/windows-machine-deployment.yaml
+deploy_k8s ./deploy/endpoints/linux-server-deployment.yaml
+deploy_k8s ./deploy/endpoints/web-server-deployment.yaml
+deploy_k8s ./deploy/endpoints/windows-machine-deployment.yaml
 
 # Print status of deployments
 echo "Getting the status of all deployments..."
