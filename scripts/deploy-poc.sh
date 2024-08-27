@@ -14,11 +14,11 @@ deploy_k8s() {
 echo "Ensuring Minikube is running..."
 minikube status || minikube start --driver=docker
 
-# Pull the latest Docker Hub images
-echo "Pulling the latest Wazuh images from Docker Hub..."
-docker pull wazuh/wazuh-manager:latest
-docker pull wazuh/wazuh-indexer:latest
-docker pull wazuh/wazuh-dashboard:latest
+# Pull the specific Docker Hub images
+echo "Pulling the specific Wazuh images from Docker Hub..."
+docker pull wazuh/wazuh-manager:4.8.0
+docker pull wazuh/wazuh-indexer:4.8.0
+docker pull wazuh/wazuh-dashboard:4.8.0
 
 # Set the base directory to the script location
 BASE_DIR="$(dirname "$0")/../deploy/kubernetes"

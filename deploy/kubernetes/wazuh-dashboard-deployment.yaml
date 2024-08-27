@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wazuh-dashboard
-        image: wazuh/wazuh-dashboard:latest  # Use the latest tag for Docker Hub image
+        image: wazuh/wazuh-dashboard:4.8.0  # Use the specific version tag
         ports:
         - containerPort: 5601
         volumeMounts:

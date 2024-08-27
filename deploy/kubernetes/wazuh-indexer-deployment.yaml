@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wazuh-indexer
-        image: wazuh/wazuh-indexer:latest  # Use the latest tag for Docker Hub image
+        image: wazuh/wazuh-indexer:4.8.0  # Use the specific version tag
         ports:
         - containerPort: 9200
         env:
